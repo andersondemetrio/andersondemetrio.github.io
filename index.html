@@ -28,11 +28,11 @@ function HomePage() {
   }
 
   return (
-     <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-       <div>
+    <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+      <div>
         <h1>Bem vindo ao Sistema de Buscas de CPF</h1>
-      <p>Bem vindo ao Sistema de Buscas de CPF, Nós usamos os pugzinhos para buscar os cpf's </p>
-    </div>
+        <p>Bem vindo ao Sistema de Buscas de CPF, Nós usamos os pugzinhos para buscar os CPFs.</p>
+      </div>
       <img src={gifImage} alt="Cachorro lambendo a tela" style={{ width: '60%' }} />
       <h1 style={{ marginBottom: '1.5rem' }}>Busca de Endereço</h1>
       <form onSubmit={handleSearchAddress}>
@@ -75,7 +75,7 @@ function HomePage() {
           <p>
             <strong>Estado:</strong> {address.uf}
           </p>
-          <p> CEP ENCONTRADO AU !</p>
+          <p>CEP ENCONTRADO AU!</p>
         </div>
       )}
     </div>
