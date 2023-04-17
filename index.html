@@ -18,32 +18,55 @@
           placeholder="Digite o CEP"
           value=""
           style="padding: 0.5rem; border-radius: 0.25rem; border: 1px solid #ccc;"
+          id="cep-input"
         />
         <button
-          type="submit"
+          type="button"
           style="padding: 0.5rem 1rem; border-radius: 0.25rem; border: none; background-color: #0070f3; color: #fff; margin-left: 0.5rem; cursor: pointer;"
+          onclick="buscarEndereco()"
         >
           Buscar
         </button>
       </form>
-      <div>
+      <div id="endereco">
         <p>
-          <strong>CEP:</strong> 
+          <strong>CEP:</strong> <span id="cep"></span>
         </p>
         <p>
-          <strong>Logradouro:</strong> 
+          <strong>Logradouro:</strong> <span id="logradouro"></span>
         </p>
         <p>
-          <strong>Bairro:</strong> 
+          <strong>Bairro:</strong> <span id="bairro"></span>
         </p>
         <p>
-          <strong>Cidade:</strong> 
+          <strong>Cidade:</strong> <span id="cidade"></span>
         </p>
         <p>
-          <strong>Estado:</strong> 
+          <strong>Estado:</strong> <span id="estado"></span>
         </p>
-        <p>CEP ENCONTRADO AU!</p>
+        <p id="cep-nao-encontrado" style="display:none;">CEP não encontrado.</p>
       </div>
     </div>
-  </body>
-</html>
+    <script>
+      function buscarEndereco() {
+        const cep = document.getElementById("cep-input").value.replace(/\D/g, '');
+
+        if (cep.length !== 8) {
+          alert("CEP inválido.");
+          return;
+        }
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(response => response.json())
+          .then(data => {
+            if ("erro" in data) {
+              document.getElementById("cep-nao-encontrado").style.display = "block";
+              document.getElementById("endereco").style.display = "none";
+            } else {
+              document.getElementById("cep").textContent = data.cep;
+              document.getElementById("logradouro").textContent = data.logradouro;
+              document.getElementById("bairro").textContent = data.bairro;
+              document.getElementById("cidade").textContent = data.localidade;
+              document.getElementById("estado").textContent = data.uf;
+              document.getElementById("endereco").style.display = "block";
+              document.getElementById("cep-nao-encontrado").style.display = "none";
